@@ -15,7 +15,9 @@ js 引擎实现的一种数据结构，它决定了哪些函数正在执行，�
 每当我们进行了异步的操作，这些异步操作对应的待执行函数会被添加到 Event Table 里面去，Event Tabel 也是一种数据结构，它的作用是确保在某些固定的 event 发生时，将对应的待执行的异步函数加入到 Event Queen。
 Event Queen 是一个类似队列的数据结构，他的作用是存储正确的函数调用顺序，然后再由 Event Loop 将其中的函数推入到 call stack.
 
-补充：js 中的任务概念 task,执行代码的过程中任务一般分为了两种，macro task & micro task
+> Task
+
+js 中的任务概念 task,执行代码的过程中任务一般分为了两种，macro task & micro task
 典型的宏任务 macro:script,setTimeout,setInterval,setImmediate,I/O,UI render
 典型的微任务 micro:promise.then,MutationObserver,MessageChanel
 在一次任务执行中 macro -> micro -> render...
@@ -29,5 +31,7 @@ Event Queen 是一个类似队列的数据结构，他的作用是存储正确�
 > some blog
 
 [JSConf vedio about event loop](https://www.youtube.com/watch?v=8aGhZQkoFbQ)
+
 [blog1](https://blog.risingstack.com/node-js-at-scale-understanding-node-js-event-loop/)
+
 [blog2](https://www.w3ctrain.com/2018/02/01/javascript-event-loop/)
