@@ -1,6 +1,6 @@
-#浏览器存储
+# 浏览器存储
 
-##只讨论 localStorage 和 sessionStorage
+## 只讨论 localStorage 和 sessionStorage
 
 localStorage:持久化存储，有 4M 甚至更多的空间,存储内容是字符串。
 sessionStorage:会话式存储，当会话关闭时，存储失效，存储内容是字符串。
