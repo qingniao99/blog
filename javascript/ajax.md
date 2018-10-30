@@ -46,13 +46,14 @@ xhr.send(null);
 
 onreadystatechange 这一事件处理程序将会在 XMLHttpRequest 对象的状态发生变化时被调用。用于
 表示状态的 readyState 的取值范围为 0~4，其中 4 表示已经完成了对来自服务器的响应的接收处理。下表解释了 0~4 所表示的含义:
-| readyState | 含义 |
-| -------- | -----: |
-| 0 | open() 尚未被调用 |
-| 1 | send() 尚未被调用 |
-| 2 | 服务器尚未返回相应 |
-| 3 | 正在接手响应 |
-| 4 | 已经接收完成响应 |
+
+| readyState |               含义 |
+| ---------- | -----------------: |
+| 0          |  open() 尚未被调用 |
+| 1          |  send() 尚未被调用 |
+| 2          | 服务器尚未返回相应 |
+| 3          |       正在接手响应 |
+| 4          |   已经接收完成响应 |
 
 在 responseText 中包含了服务器响应的字符串形式。
 在这个例子中，仅传递了两个参数给 open()。但实际上它还能再接受 3 个参数。
@@ -174,6 +175,6 @@ withCredentials 属性设置为 true。
 
 此外还有 HTML5 的 postMessage,后台请求代理等措施可以跨域。
 
------
+---
 
-社区有很多很成熟的ajax封装，像经典的jq.ajax,还有特别火的[axios](https://github.com/axios/axios)等。
+社区有很多很成熟的 ajax 封装，像经典的 jq.ajax,还有特别火的[axios](https://github.com/axios/axios)等。
