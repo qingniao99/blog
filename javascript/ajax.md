@@ -65,7 +65,7 @@ onreadystatechange 这一事件处理程序将会在 XMLHttpRequest 对象的状
 
 ## 超时:
 
-xhr 本身并没有超时这个功能，但是可以通过 setTimeout 进行模拟.
+xhr 本身并没有超时这个功能，但是可以通过 setTimeout 进行模拟.(某些高级浏览器内置了 timeout 的实现)
 
 ```javascript
 var xhr = new XMLHttpRequest();
@@ -77,6 +77,12 @@ xhr.onreadystatechange = function() {
     // 取消超时处理
     window.clearTimeout(timeId);
   }
+};
+
+// 如果内置了timeout
+xhr.timeout = 4000; // Set timeout to 4 seconds (4000 milliseconds)
+xhr.ontimeout = function() {
+  alert("Timed out!!!");
 };
 ```
 
