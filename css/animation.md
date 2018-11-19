@@ -86,3 +86,52 @@ boat.onclick = function() {
   });
 };
 ```
+
+## keyframe
+
+[summary from aaronjs blog](http://www.cnblogs.com/aaronjs/p/4642015.html)
+
+Animation的几个属性:
+
+- animation-name
+- animation-duration
+- animation-delay
+- animation-iteration-count
+- animation-direction
+- animation-play-state
+- animation-fill-mode
+- animation-timing-function
+
+```css
+.test1 {
+    width: 90px;
+    height: 60px;
+    -webkit-animation-name: skyset;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite; /*无限循环*/
+    -webkit-animation-timing-function: linear;
+}
+@-webkit-keyframes skyset {
+    0% { background: red;}
+    50%{ background: blue}
+    100% {background: yellow;}
+}
+```
+timing-function:linear 定义的是一个匀速变化的动画，就是在2秒内，从红色过度到蓝色到黄色，是一个很线性的颜色变化
+如果要实现帧动画效果而不是线性的变化就需要引入step这个值了，换句话就是没有过渡的效果，而是一帧帧的变化.
+
+理解steps
+steps 函数指定了一个阶跃函数
+第一个参数指定了时间函数中的间隔数量（必须是正整数）
+第二个参数可选，接受 start 和 end 两个值，指定在每个间隔的起点或是终点发生阶跃变化，默认为 end。
+step-start等同于steps(1,start)，动画分成1步，动画执行时为开始左侧端点的部分为开始；
+step-end等同于steps(1,end)：动画分成一步，动画执行时以结尾端点为开始，默认值为end。
+
+[timing-function](https://www.w3.org/TR/css-transitions-1/#transition-timing-function-property)
+
+**timing-function 作用于每两个关键帧之间，而不是整个动画**
+
+![step iimage](https://images0.cnblogs.com/i/596159/201406/091121212334792.png)
+
+[how to use steps](https://designmodo.com/steps-css-animations/)
+
