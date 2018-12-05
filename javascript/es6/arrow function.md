@@ -18,6 +18,60 @@ const add = (a, b) => a + b;
 
 const getFirst = array => array[0];
 
+arrow functions behave differently than traditional JavaScript functions in a number of important ways:
+
+- No this, super, arguments, and new.target bindings - The value of this, super, arguments, and new.target inside of the function is by the closest containing nonarrow function. (super is covered in Chapter 4.)
+- Cannot be called with new - Arrow functions do not have a [[Construct]] method and therefore cannot be used as constructors. Arrow functions throw an error when used with new.
+- No prototype - since you can't use new on an arrow function, there's no need for a prototype. The prototype property of an arrow function doesn't exist.
+- Can't change this - The value of this inside of the function can't be changed. It remains the same throughout the entire lifecycle of the function.
+- No arguments object - Since arrow functions have no arguments binding, you must rely on named and rest parameters to access function arguments.
+- No duplicate named parameters - arrow functions cannot have duplicate named parameters in strict or nonstrict mode, as opposed to nonarrow functions that cannot have duplicate named parameters only in strict mode.
+
+```javascript
+var reflect = value => value;
+
+// effectively equivalent to:
+
+var reflect = function(value) {
+  return value;
+};
+
+var sum = (num1, num2) => num1 + num2;
+
+// effectively equivalent to:
+
+var sum = function(num1, num2) {
+  return num1 + num2;
+};
+
+var sum = (num1, num2) => {
+  return num1 + num2;
+};
+
+// effectively equivalent to:
+
+var sum = function(num1, num2) {
+  return num1 + num2;
+};
+
+var doNothing = () => {};
+
+// effectively equivalent to:
+
+var doNothing = function() {};
+
+var getTempItem = id => ({ id: id, name: "Temp" });
+
+// effectively equivalent to:
+
+var getTempItem = function(id) {
+  return {
+    id: id,
+    name: "Temp"
+  };
+};
+```
+
 ## 封闭的上下文作用域
 
 **不像其他形式的函数，箭头函数并没有他们自己的执行上下文。实际上，这就意味着代码中的 this 和 arguments 都是继承自他们的父函数。**
@@ -54,8 +108,64 @@ arrow();
 //test object
 //object { '0': 'hello', '1': 'world' }
 //this->test
-
 ```
 
-第一个匿名函数有自己的上下文（指向并非test对象），当你调用的时候没有参考的this.name的属性，（注意：现在this指向window），也没有创建它时调用的参数。另一个，箭头函数与创建它的函数有相同的上下文，让其可以访问参数arguments和对象。
+```javascript
+var PageHandler = {
+  id: "123456",
 
+  init: function() {
+    document.addEventListener(
+      "click",
+      function(event) {
+        this.doSomething(event.type); // error
+      },
+      false
+    );
+  },
+
+  doSomething: function(type) {
+    console.log("Handling " + type + " for " + this.id);
+  }
+};
+
+var PageHandler = {
+  id: "123456",
+
+  init: function() {
+    document.addEventListener(
+      "click",
+      function(event) {
+        this.doSomething(event.type); // no error
+      }.bind(this),
+      false
+    );
+  },
+
+  doSomething: function(type) {
+    console.log("Handling " + type + " for " + this.id);
+  }
+};
+
+var PageHandler = {
+  id: "123456",
+
+  init: function() {
+    document.addEventListener(
+      "click",
+      event => this.doSomething(event.type),
+      false
+    );
+  },
+
+  doSomething: function(type) {
+    console.log("Handling " + type + " for " + this.id);
+  }
+};
+```
+
+第一个匿名函数有自己的上下文（指向并非 test 对象），当你调用的时候没有参考的 this.name 的属性，（注意：现在 this 指向 window），也没有创建它时调用的参数。另一个，箭头函数与创建它的函数有相同的上下文，让其可以访问参数 arguments 和对象。
+
+## some blog
+
+[nicolas gitbook](https://github.com/nzakas/understandinges6/blob/master/manuscript/03-Functions.md)
